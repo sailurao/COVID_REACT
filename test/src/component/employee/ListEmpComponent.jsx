@@ -12,6 +12,7 @@ class ListEmpComponent extends Component {
         this.deleteEmp = this.deleteEmp.bind(this);
         this.editEmp = this.editEmp.bind(this);
         this.addEmp = this.addEmp.bind(this);
+        this.emailEmp = this.emailEmp.bind(this);
         this.reloadEmpList = this.reloadEmpList.bind(this);
     }
 
@@ -39,6 +40,11 @@ class ListEmpComponent extends Component {
     editEmp(id) {
         window.localStorage.setItem("userId", id);
         this.props.history.push('/edit-employee');
+    }
+
+    emailEmp(id) {
+	   ApiService.emailEmployee(id);
+	   alert("Invitation Email Sent Succesfully!");
     }
 
     addEmp() {
@@ -77,6 +83,7 @@ class ListEmpComponent extends Component {
                                         <td>
                                             <button className="btn btn-success" onClick={() => this.deleteEmp(emp.id)}> Delete</button>
                                             <button className="btn btn-success" onClick={() => this.editEmp(emp.id)} style={{marginLeft: '20px'}}> Edit</button>
+                                            <button className="btn btn-success" onClick={() => this.emailEmp(emp.id)} style={{marginLeft: '20px'}}> Send Email</button>
                                         </td>
                                     </tr>
                             )

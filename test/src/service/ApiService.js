@@ -57,6 +57,14 @@ class ApiService {
         return axios.put(EMPLOYEE_API_BASE_URL + '/' + emp.emp_id, emp);
     }
 //******************************************************
+
+//******************** employee Email Service *****************
+    emailEmployee(empId) {
+        return axios.get(EMPLOYEE_API_BASE_URL + '/email/' + empId);
+    }
+
+//******************************************************
+		
 		
 //******************** employees Transaction table *****************
     fetchEmployeeTrs() {

@@ -87,8 +87,10 @@ class NewTrComponent extends Component{
         ApiService.addEmployeeTr(emptr)
             .then(res => {
                 this.setState({message : 'Employee Transaction added successfully.'});
-                this.props.history.push('/employee-trs');
+                //this.props.history.push('/employee-trs');
             });
+		alert("Thanks for answering PDI COVID Questionnare!");
+		window.close();
     }
 
     onChange = (e) =>{
