@@ -22,3 +22,12 @@
 .App-link {
   color: #61dafb;
 }
+
+.img1 {
+ justifyContent: 'center';
+    alignItems: 'center';
+}
+
+.tbl1{
+  padding: 15px;
+}

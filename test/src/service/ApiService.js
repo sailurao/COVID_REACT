@@ -1,10 +1,13 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = 'http://localhost:8080/users';
-const EMPLOYEE_API_BASE_URL = 'http://localhost:8080/employees';
-const EMPLOYEETR_API_BASE_URL = 'http://localhost:8080/employee-trs';
+//const COVID_CONTROLLER_IP = 'http://localhost';
+const COVID_CONTROLLER_IP = 'http://192.168.0.200';
 
-const EMPLOYEE1_API_BASE_URL = 'http://localhost:8080/245678342/ighklsd'; //used to fetch single employee record by user id
+const USER_API_BASE_URL = COVID_CONTROLLER_IP +':8080/users';
+const EMPLOYEE_API_BASE_URL = COVID_CONTROLLER_IP +':8080/employees';
+const EMPLOYEETR_API_BASE_URL = COVID_CONTROLLER_IP +':8080/employee-trs';
+
+const EMPLOYEE1_API_BASE_URL = COVID_CONTROLLER_IP +':8080/245678342/ighklsd'; //used to fetch single employee record by user id
 
 
 class ApiService {

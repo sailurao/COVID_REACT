@@ -14,13 +14,26 @@ import ListEmpTrComponent from "./component/employee/ListEmpTrComponent";
 import AddEmpTrComponent from "./component/employee/AddEmpTrComponent";
 import NewTrComponent from "./component/employee/NewTrComponent";
 
+import pdi_img from './images/pdi_logo.png'; // gives image path
+import styles from './App.css'; 
 
 function App() {
   return (
       <div className="container">
           <Router>
+							<div className="form-group">
+              </div>
               <div className="col-md-6">
-                  <h1 className="text-center" style={style}>OM SRI RAM</h1>
+	                <table className="table table-striped">
+										<tr>
+	                    <td>  </td>
+	                     <td>  </td>
+	                    <td>
+													{/*<h1 className="text-center" style={style}>OM SRI RAM</h1>*/}			
+													<img src={pdi_img} alt="this is PDI image" className={styles.img1}/>
+                      </td>
+                    </tr>
+                   </table>
                   <Switch>
                       <Route path="/" exact component={ListEmpTrComponent} />
                       <Route path="/users" component={ListUserComponent} />
