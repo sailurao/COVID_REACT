@@ -98,8 +98,18 @@ class NewTrComponent extends Component{
                 this.setState({message : 'Employee Transaction added successfully.'});
                 //this.props.history.push('/employee-trs');
             });
-		alert("Thanks for answering PDI COVID Questionnare!");
-		window.close();
+        let my_str1;
+        if((emptr.q1=='yes')||(emptr.q2=='yes')||(emptr.q3=='yes')||(emptr.q4=='yes')){
+            my_str1="Not Approved to enter PDI. For the safety of all, PDI asks you to stay home and call in to talk with your supervisor.  Thank you.";
+        }
+        else{
+                    my_str1="Approved to enter PDI. Thank you.";
+
+        }
+		alert(my_str1);
+        //window.close();
+        var customWindow = window.open('', '_blank', '');
+        customWindow.close();        
     }
 
     onChange = (e) =>{
@@ -151,11 +161,16 @@ class NewTrComponent extends Component{
                 </div>
 
                 <div className="form-group">
+                    <label>4. Are you running a temperature above 99.4F without the use of fever reducing medicine (Y/N)?</label>
+				  <input type="radio" id="yes" name="q4" value="yes" onChange={this.onChange}/><strong>YES</strong> {"			"}
+				  <input type="radio" id="no" name="q4" value="no" onChange={this.onChange}/><strong>NO</strong> 
+                </div>
+{/*                <div className="form-group">
                     <label>Enter Body Temperature &#8457; :</label>
                     <input placeholder="Temp" type="number" name="temp" className="form-control" value={this.state.temp} onChange={this.onChange}/>
                 </div>
 
-
+            */}
                 <button className="btn btn-success" onClick={this.saveEmployeeTr}>Submit</button>
             </form>
     </div>
