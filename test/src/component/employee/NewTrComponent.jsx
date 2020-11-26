@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component , useState }  from 'react'
 import ApiService from "../../service/ApiService";
 
 class NewTrComponent extends Component{
@@ -24,8 +24,17 @@ class NewTrComponent extends Component{
             q3: 'yes',
             q4: 'yes',
             q5: 'yes',
-            message: null
+            message: null,
+			isShown:false,
+          setIsShown:false			
         }
+		const styleObj = {
+			fontSize: 14,
+			color: "#4a54f1",
+			border: "2px solid red",
+			textAlign: "center",
+			paddingTop: "1px",
+	   }		
         this.saveEmployeeTr = this.saveEmployeeTr.bind(this);
     }
 
@@ -98,7 +107,15 @@ class NewTrComponent extends Component{
   	    //console.log(location.pathname); // path is /contact
         this.setState({ [e.target.name]: e.target.value });
     }
-	
+    set_high = () => {  
+      this.setState({ setIsShown:1});
+    }
+
+    set_low = () => {  
+      this.setState({ setIsShown:0});
+    }
+
+
     render() {
 	    console.log(this.state.employee.id);
         return(
@@ -111,12 +128,15 @@ class NewTrComponent extends Component{
                     <input placeholder="Employee Id" name="empid" className="form-control" value={this.state.employee.firstName + " " + this.state.employee.lastName} onChange={this.onChange} readonly/>
                 </div>
 
-                <div className="form-group">
-                    <label>1. Are you experiencing any Covid-19 symptoms or suspect you may have it (Y/N)?</label>
+                
+              <div className="form-group">
+                    <label>1. Are you experiencing any Covid-19 <u onMouseEnter={this.set_high} onMouseLeave={this.set_low}>symptoms</u> or suspect you may have it (Y/N)?</label>
 				  <input type="radio" id="yes" name="q1" value="yes" onChange={this.onChange}/><strong>YES</strong> {"			"}
 				  <input type="radio" id="no" name="q1" value="no" onChange={this.onChange}/><strong>NO</strong> 
-                </div>
-
+                </div>      
+				{(this.state.setIsShown!=0)&& (<div> <p style={this.styleObj}>
+				Symptoms of COVID-19 include fever (>=100.4F, 38C), cough, shortness of breath, difficulty breathing, or at least two of the following symptoms: chills, shaking with chills, muscle pain, headache, sore throat, and loss of taste or smell. Symptoms can range from mild to severe and may appear up to two weeks after exposure to the virus, according to the CDC. Some people with COVID-19 don't display any symptoms. This list does not include all possible symptoms. Other less common symptoms have been reported, including gastrointestinal symptoms like nausea, vomiting, or diarrhea.</p></div>)
+				}
                 <div className="form-group">
                     <label>2. Have you been exposed (ie; within 6ft for 15 minutes or more without a mask)
                     to a positively diagnosed COVID-19 case within the last 2 weeks (Y/N)?</label>
