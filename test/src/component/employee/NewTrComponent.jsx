@@ -130,7 +130,7 @@ class NewTrComponent extends Component{
 	    console.log(this.state.employee.id);
         return(
             <div>
-                <h2 className="text-center">Please answer below questionnaire</h2>
+                <h2 className="text-center">Daily Health Screen Questionnaire for Employees and Visitors</h2>
                 <form>
                 
                 <div className="form-group">
@@ -161,7 +161,7 @@ class NewTrComponent extends Component{
                 </div>
 
                 <div className="form-group">
-                    <label>4. Are you running a temperature above 99.4F without the use of fever reducing medicine (Y/N)?</label>
+                    <label>4. Are you running a temperature above 100.3F without the use of fever reducing medicine (Y/N)?</label>
 				  <input type="radio" id="yes" name="q4" value="yes" onChange={this.onChange}/><strong>YES</strong> {"			"}
 				  <input type="radio" id="no" name="q4" value="no" onChange={this.onChange}/><strong>NO</strong> 
                 </div>
