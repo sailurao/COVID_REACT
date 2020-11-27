@@ -96,20 +96,23 @@ class NewTrComponent extends Component{
         ApiService.addEmployeeTr(emptr)
             .then(res => {
                 this.setState({message : 'Employee Transaction added successfully.'});
-                //this.props.history.push('/employee-trs');
-            });
-        let my_str1;
-        if((emptr.q1=='yes')||(emptr.q2=='yes')||(emptr.q3=='yes')||(emptr.q4=='yes')){
-            my_str1="Not Approved to enter PDI. For the safety of all, PDI asks you to stay home and call in to talk with your supervisor.  Thank you.";
-        }
-        else{
-                    my_str1="Approved to enter PDI. Thank you.";
+                let my_str1;
+                if((emptr.q1=='yes')||(emptr.q2=='yes')||(emptr.q3=='yes')||(emptr.q4=='yes')){
+                   // my_str1="Not Approved to enter PDI. For the safety of all, PDI asks you to stay home and call in to talk with your supervisor.  Thank you.";
+                    this.props.history.push('/empalrt2');
+                }
+                else{
+                     //       my_str1="Approved to enter PDI. Thank you.";
+                    this.props.history.push('/empalrt1');
 
-        }
-		alert(my_str1);
+                }
+
+
+            });
+		//alert(my_str1);
         //window.close();
-        var customWindow = window.open('', '_blank', '');
-        customWindow.close();        
+        //var customWindow = window.open('', '_blank', '');
+        //customWindow.close();        
     }
 
     onChange = (e) =>{

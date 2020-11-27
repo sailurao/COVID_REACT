@@ -13,6 +13,9 @@ import EditEmpComponent from "./component/employee/EditEmpComponent";
 import ListEmpTrComponent from "./component/employee/ListEmpTrComponent";
 import AddEmpTrComponent from "./component/employee/AddEmpTrComponent";
 import NewTrComponent from "./component/employee/NewTrComponent";
+import EmpAlert1 from "./component/employee/EmpAlert1";
+import EmpAlert2 from "./component/employee/EmpAlert2";
+
 
 import pdi_img from './images/pdi_logo.png'; // gives image path
 import styles from './App.css'; 
@@ -45,6 +48,8 @@ function App() {
                       <Route path="/employee-trs" component={ListEmpTrComponent} />
                       <Route path="/add-employee-tr" component={AddEmpTrComponent} />
                       <Route path="/new-tr" component={NewTrComponent} />
+                      <Route path="/empalrt1" component={EmpAlert1} />
+                      <Route path="/empalrt2" component={EmpAlert2} />
                   </Switch>
               </div>
           </Router>
