@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import "./styles.css";
-
 
 class EmpAlert2 extends Component {
 

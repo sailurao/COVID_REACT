@@ -21,6 +21,9 @@ import pdi_img from './images/pdi_logo.png'; // gives image path
 import styles from './App.css'; 
 
 function App() {
+ const h2Style = {
+        marginLeft: '160px',
+      };    
   return (
       <div className="container">
           <Router>
@@ -33,7 +36,7 @@ function App() {
 	                     <td>  </td>
 	                    <td>
 													{/*<h1 className="text-center" style={style}>OM SRI RAM</h1>*/}			
-													<img src={pdi_img} alt="this is PDI image" className={styles.img1}/>
+													<img src={pdi_img} alt="this is PDI image" style={h2Style}/>
                       </td>
                     </tr>
                    </table>
@@ -59,7 +62,7 @@ function App() {
 
 const style = {
     color: 'red',
-    margin: '10px'
+    marginleft: '100px'
 }
 
 export default App;

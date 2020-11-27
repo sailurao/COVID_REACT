@@ -99,11 +99,11 @@ class NewTrComponent extends Component{
                 let my_str1;
                 if((emptr.q1=='yes')||(emptr.q2=='yes')||(emptr.q3=='yes')||(emptr.q4=='yes')){
                    // my_str1="Not Approved to enter PDI. For the safety of all, PDI asks you to stay home and call in to talk with your supervisor.  Thank you.";
-                    this.props.history.push('/empalrt2');
+                    this.props.history.push('/empalrt1');
                 }
                 else{
                      //       my_str1="Approved to enter PDI. Thank you.";
-                    this.props.history.push('/empalrt1');
+                    this.props.history.push('/empalrt2');
 
                 }
 
