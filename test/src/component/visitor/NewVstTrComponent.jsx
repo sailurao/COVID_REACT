@@ -1,12 +1,14 @@
 import React, { Component , useState }  from 'react'
 import ApiService from "../../service/ApiService";
 
-class NewTrComponent extends Component{
+class NewVstTrComponent extends Component{
 
     constructor(props){
         super(props);
         this.state ={
-		    employee: {
+            employees:[],
+			empnew:[],
+		    visitor: {
 			    id:'',
 				firstName: '',
 				lastName: '',
@@ -15,7 +17,7 @@ class NewTrComponent extends Component{
 				email: '',
 				address: ''
 				},
-            empid: '',
+            vstid: '',
             date: '',
             time: '',
             temp: '98',
@@ -24,6 +26,8 @@ class NewTrComponent extends Component{
             q3: 'yes',
             q4: 'yes',
             q5: 'yes',
+			empid:'',
+			emp_name:'',
             message: null,
 			isShown:false,
           setIsShown:false			
@@ -35,35 +39,52 @@ class NewTrComponent extends Component{
 			textAlign: "center",
 			paddingTop: "1px",
 	   }		
-        this.saveEmployeeTr = this.saveEmployeeTr.bind(this);
+        this.saveVisitorTr = this.saveVisitorTr.bind(this);
+        this.getEmployeeList=this.getEmployeeList.bind(this);
     }
 
     componentDidMount() {
 	    var str = this.props.location.pathname; //Getting the path data -  https://reactgo.com/react-router-current-route/
-		var str2="new-tr/";
+		var str2="new-vst-tr/";
 		var pos = str.search(str2);
 		
 		if(pos > 0){
 		   pos = pos + str2.length;
 		   var str1 = str.slice(pos);   
-		   this.setState({empid: str1});
+		   this.setState({vstid: str1});
 		   
-			ApiService.fetchEmployee(str1)
+			ApiService.fetchVisitor(str1)
             .then((res) => {
-                this.setState({employee: res.data.result})
+                this.setState({visitor: res.data.result})
+
             });	
-            var str4 = this.state.employee.id.toString();	
-		   this.setState({empid: str4});
+            var str4 = this.state.visitor.id.toString();	
+		   this.setState({vstid: str4});
 		}
 		else{
-		   this.setState({empid: ""}); //emp ID not found
+		   this.setState({vstid: ""}); //vst ID not found
 		}
-		
-	    console.log(this.state.empid); //Getting the path data -  https://reactgo.com/react-router-current-route/
+
+		ApiService.fetchEmployees()
+            .then((res) => {
+                this.setState({employees: res.data.result});
+				
+				//now make new list
+				var len = this.state.employees.length;
+				var i=0;
+				let emp=[];
+				for(i=0;i<len;i++){
+                   let val ={ id:this.state.employees[i].id, name: this.state.employees[i].firstName+ " " + this.state.employees[i].lastName};	
+                   emp[i]=val;				   
+				}
+				this.setState({empnew:emp});
+        });	
+        
+	    console.log(this.state.vstid); //Getting the path data -  https://reactgo.com/react-router-current-route/
     }
 
 
-    saveEmployeeTr = (e) => {
+    saveVisitorTr = (e) => {
         e.preventDefault();
 		
 			let today = new Date();
@@ -92,14 +113,14 @@ class NewTrComponent extends Component{
 				this.setState({ date: date1 });
 				this.setState({ time: time1 });
 		
-        let emptr = {empid: this.state.employee.id, date: date1, time: time1, temp:this.state.temp, q1:this.state.q1, q2:this.state.q2,q3:this.state.q3,q4:this.state.q4,q5:this.state.q5};
-        ApiService.addEmployeeTr(emptr)
+        let vsttr = {visid: this.state.visitor.id,empid:this.state.empid, date: date1, time: time1, temp:this.state.temp, q1:this.state.q1, q2:this.state.q2,q3:this.state.q3,q4:this.state.q4,q5:this.state.q5};
+        ApiService.addVisitorTr(vsttr)
             .then(res => {
-                this.setState({message : 'Employee Transaction added successfully.'});
+                this.setState({message : 'Visitor Transaction added successfully.'});
                 let my_str1;
-                if((emptr.q1=='yes')||(emptr.q2=='yes')||(emptr.q3=='yes')||(emptr.q4=='yes')){
+                if((vsttr.q1=='yes')||(vsttr.q2=='yes')||(vsttr.q3=='yes')||(vsttr.q4=='yes')){
                    // my_str1="Not Approved to enter PDI. For the safety of all, PDI asks you to stay home and call in to talk with your supervisor.  Thank you.";
-                    this.props.history.push('/empalrt1');
+                    this.props.history.push('/vstalrt1');
                 }
                 else{
                      //       my_str1="Approved to enter PDI. Thank you.";
@@ -119,6 +140,11 @@ class NewTrComponent extends Component{
 	    //const location = useLocation();
   	    //console.log(location.pathname); // path is /contact
         this.setState({ [e.target.name]: e.target.value });
+		if(e.target.name == "empid"){
+		   let id =  e.target.value;
+		   //let str = this.state.employees[id].firstName+ " " + this.state.employees[id].lastName;
+			//this.setState({ emp_name: str });
+		}
     }
     set_high = () => {  
       this.setState({ setIsShown:1});
@@ -128,18 +154,39 @@ class NewTrComponent extends Component{
       this.setState({ setIsShown:0});
     }
 
+    //Get Employees list
+    getEmployeeList(){
+        const employees = this.state.empnew;
+
+        let emplst = employees.length > 0
+        && employees.map((item, i) => {
+        return (
+            <option key={i} value={item.id}>{item.name}</option>
+        )
+        }, this);
+
+        return emplst;
+    }
 
     render() {
-	    console.log(this.state.employee.id);
+        console.log(this.state.visitor.id);
+        const myEmpLst=this.getEmployeeList(); //get all employee list
         return(
-            <div>
+            <div className="form-group">
                 <h2 className="text-center" class="title">Daily Health Screen Questionnaire for Employees and Visitors</h2>
                 <form>
                 
                 <div className="form-group">
-                    <label>Employee Name:</label>
-                    <input placeholder="Employee Id" name="empid" className="form-control" value={this.state.employee.firstName + " " + this.state.employee.lastName} onChange={this.onChange} readonly/>
+                    <label>Visitor Name:</label>
+                    <input placeholder="Visitor Id" name="vstid" className="form-control" value={this.state.visitor.firstName + " " + this.state.visitor.lastName} onChange={this.onChange} readonly/>
                 </div>
+
+               <div className="form-group">
+                    <label>Whom are you visiting: </label>
+                    <select  id="empid" name="empid" value={this.state.empnew.name} onChange={this.onChange}>
+				        {myEmpLst}
+			        </select> 
+               </div>
 
                 
               <div className="form-group">
@@ -174,11 +221,11 @@ class NewTrComponent extends Component{
                 </div>
 
             */}
-                <button className="btn btn-success" onClick={this.saveEmployeeTr}>Submit</button>
+                <button className="btn btn-success" onClick={this.saveVisitorTr}>Submit</button>
             </form>
     </div>
         );
     }
 }
 
-export default NewTrComponent;
+export default NewVstTrComponent;

@@ -112,7 +112,7 @@ class ListEmpTrComponent extends Component {
     render() {
         return (
             <div>
-                <h2 className="text-center">Employee Transaction Details</h2>
+                <h2 className="text-center" class="title">Employee Transaction Details</h2>
                 <button className="btn btn-danger" style={{width:'200px'}} onClick={() => this.addEmpTr()}> Add Transaction</button>
                 <table className="table table-striped">
                     <thead>
@@ -121,12 +121,12 @@ class ListEmpTrComponent extends Component {
                             <th>Employee</th>
                             <th>Date</th>
                             <th>Time</th>
-                            <th>Temp(&#8457;)</th>
+ {/*                           <th>Temp(&#8457;)</th> */}
                             <th>Q1</th>
                             <th>Q2</th>
                             <th>Q3</th>
                             <th>Q4</th>
-                            <th>Q5</th>
+{/*                             <th>Q5</th>  */}
                         </tr>
                     </thead>
                     <tbody>
@@ -137,12 +137,12 @@ class ListEmpTrComponent extends Component {
                                         <td>{emp.empid}</td>
                                         <td>{emp.date}</td>
                                         <td>{emp.time}</td>
-                                        <td>{emp.temp}</td>
+{/*                                         <td>{emp.temp}</td>  */}
                                         <td>{emp.q1}</td>
                                         <td>{emp.q2}</td>
                                         <td>{emp.q3}</td>
                                         <td>{emp.q4}</td>
-                                        <td>{emp.q5}</td>
+{/*                                         <td>{emp.q5}</td>  */}
                                         <td>
                                             <button className="btn btn-success" onClick={() => this.deleteEmpTr(emp.id)}> Delete</button>
                                         </td>

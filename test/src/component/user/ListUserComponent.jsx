@@ -48,7 +48,7 @@ class ListUserComponent extends Component {
     render() {
         return (
             <div>
-                <h2 className="text-center">User Details</h2>
+                <h2 className="text-center" class="title">User Details</h2>
                 <button className="btn btn-danger" style={{width:'100px'}} onClick={() => this.addUser()}> Add User</button>
                 <table className="table table-striped">
                     <thead>

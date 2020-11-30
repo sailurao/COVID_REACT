@@ -55,7 +55,7 @@ class ListEmpComponent extends Component {
     render() {
         return (
             <div>
-                <h2 className="text-center">Employee Details</h2>
+                <h2 className="text-center" class="title">Employee Details</h2>
                 <button className="btn btn-danger" style={{width:'200px'}} onClick={() => this.addEmp()}> Add Employee</button>
                 <table className="table table-striped">
                     <thead>

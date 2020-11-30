@@ -6,8 +6,15 @@ const COVID_CONTROLLER_IP = 'http://localhost';
 const USER_API_BASE_URL = COVID_CONTROLLER_IP +':8080/users';
 const EMPLOYEE_API_BASE_URL = COVID_CONTROLLER_IP +':8080/employees';
 const EMPLOYEETR_API_BASE_URL = COVID_CONTROLLER_IP +':8080/employee-trs';
-
 const EMPLOYEE1_API_BASE_URL = COVID_CONTROLLER_IP +':8080/245678342/ighklsd'; //used to fetch single employee record by user id
+
+const VISITOR_API_BASE_URL = COVID_CONTROLLER_IP +':8080/visitors';
+const VISITORTR_API_BASE_URL = COVID_CONTROLLER_IP +':8080/visitor-trs';
+const VISITOR1_API_BASE_URL = COVID_CONTROLLER_IP +':8080/245678342/ighklsd1'; //used to fetch single visitor record by user id
+
+const AUTH_API_BASE_URL = COVID_CONTROLLER_IP +':8080/auth';
+
+
 
 
 class ApiService {
@@ -90,6 +97,73 @@ class ApiService {
         return axios.put(EMPLOYEETR_API_BASE_URL + '/' + emp.emp_id, emp);
     }
 //******************************************************
+		
+//******************** vistors table *****************
+    fetchVisitors() {
+        return axios.get(VISITOR_API_BASE_URL);
+    }
+
+    fetchVisitor(empId) {
+        return axios.get(VISITOR1_API_BASE_URL + '/' + empId);
+    }
+
+    fetchVisitorById(empId) {
+        return axios.get(VISITOR_API_BASE_URL + '/' + empId);
+    }
+
+    deleteVisitor(empId) {
+        return axios.delete(VISITOR_API_BASE_URL + '/' + empId);
+    }
+
+    addVisitor(emp) {
+        return axios.post(""+VISITOR_API_BASE_URL, emp);
+    }
+
+    editVisitor(emp) {
+        return axios.put(VISITOR_API_BASE_URL + '/' + emp.emp_id, emp);
+    }
+//******************************************************
+
+//******************** employee Email Service *****************
+    emailVisitor(empId) {
+        return axios.get(VISITOR_API_BASE_URL + '/email/' + empId);
+    }
+
+//******************************************************
+		
+//******************** Visitorss Transaction table *****************
+    fetchVisitorTrs() {
+        return axios.get(VISITORTR_API_BASE_URL);
+    }
+
+    fetchVisitorTrById(empId) {
+        return axios.get(VISITORTR_API_BASE_URL + '/' + empId);
+    }
+
+    deleteVisitorTr(empId) {
+        return axios.delete(VISITORTR_API_BASE_URL + '/' + empId);
+    }
+
+    addVisitorTr(emp) {
+        return axios.post(""+VISITORTR_API_BASE_URL, emp);
+    }
+
+    editVisitorTr(emp) {
+        return axios.put(VISITORTR_API_BASE_URL + '/' + emp.emp_id, emp);
+    }
+//******************************************************
+		
+/************ Authentication services ****************/
+    getAuthenticated(auth){
+        return axios.post(""+AUTH_API_BASE_URL, auth);
+    }			
+		
+    ChkMyToken(token){
+			  if(token ==""){
+					token="hello";
+				}
+        return axios.get(""+AUTH_API_BASE_URL+'/' + token);
+    }			
 		
 		
 }

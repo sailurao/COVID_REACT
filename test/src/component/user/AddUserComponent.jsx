@@ -33,7 +33,7 @@ class AddUserComponent extends Component{
     render() {
         return(
             <div>
-                <h2 className="text-center">Add User</h2>
+                <h2 className="text-center" class="title">Add User</h2>
                 <form>
                 <div className="form-group">
                     <label>User Name:</label>

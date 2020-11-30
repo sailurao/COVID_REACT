@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import ListUserComponent from "./component/user/ListUserComponent";
 import AddUserComponent from "./component/user/AddUserComponent";
 import EditUserComponent from "./component/user/EditUserComponent";
@@ -16,14 +16,59 @@ import NewTrComponent from "./component/employee/NewTrComponent";
 import EmpAlert1 from "./component/employee/EmpAlert1";
 import EmpAlert2 from "./component/employee/EmpAlert2";
 
+import ListVstComponent from "./component/visitor/ListVstComponent";
+import AddVstComponent from "./component/visitor/AddVstComponent";
+import EditVstComponent from "./component/visitor/EditVstComponent";
+import ListVstTrComponent from "./component/visitor/ListVstTrComponent";
+import NewVstTrComponent from "./component/visitor/NewVstTrComponent";
+import VstAlert1 from "./component/visitor/VstAlert1";
+
 
 import pdi_img from './images/pdi_logo.png'; // gives image path
 import styles from './App.css'; 
 
-function App() {
- const h2Style = {
-        marginLeft: '160px',
-      };    
+import Navbar from "./component/Navbar";
+import ApiService from "./service/ApiService";
+import AuthComponent from "./component/employee/AuthComponent";
+import logout from "./component/employee/logout";
+
+class App extends React.Component {
+	
+	   constructor(props) {
+        super(props)
+        this.state = {
+					 isAuth: false,
+					 token:"hello"
+				}
+			}
+			
+			componentDidMount() {
+				   console.log("om sri Ram1- authentication");
+				   let str = 	localStorage.getItem("token");
+           if(str !=null){
+							this.setState({token: str});
+						}
+										
+ 				   ApiService.ChkMyToken(str)
+										.then((res) => {
+										      let emp = res.data.result;
+                          let str = res.data.message;										
+										
+												if(str== "match"){
+														this.setState({isAuth:true}); //useState(true);
+												}
+												else{
+														this.setState({isAuth:false}); //useState(false);
+												}
+										});
+										
+										
+      }
+	
+   render() {
+		 const h2Style = {
+						marginLeft: '160px',
+					};    
   return (
       <div className="container">
           <Router>
@@ -40,24 +85,40 @@ function App() {
                       </td>
                     </tr>
                    </table>
-                  <Switch>
-                      <Route path="/" exact component={ListEmpTrComponent} />
-                      <Route path="/users" component={ListUserComponent} />
-                      <Route path="/add-user" component={AddUserComponent} />
-                      <Route path="/edit-user" component={EditUserComponent} />
-                      <Route path="/employees" component={ListEmpComponent} />
-                      <Route path="/add-employee" component={AddEmpComponent} />
-                      <Route path="/edit-employee" component={EditEmpComponent} />
-                      <Route path="/employee-trs" component={ListEmpTrComponent} />
-                      <Route path="/add-employee-tr" component={AddEmpTrComponent} />
+									{this.state.isAuth && <Navbar />	}
+									{/*!this.state.isAuth && <AuthComponent />	*/}
+									<div className="form-group" style={{ marginTop: 40 }}>
+									 </div>
+   	              <div className="form-group">
+									<Switch>
+                      {this.state.isAuth && <Route path="/" exact component={ListEmpTrComponent} /> }
+                      {this.state.isAuth && <Route path="/users" component={ListUserComponent} /> }
+                      {this.state.isAuth && <Route path="/add-user" component={AddUserComponent} /> }
+                      {this.state.isAuth && <Route path="/edit-user" component={EditUserComponent} /> }
+                      {this.state.isAuth && <Route path="/employees" component={ListEmpComponent} /> }
+                      {this.state.isAuth && <Route path="/add-employee" component={AddEmpComponent} /> }
+                      {this.state.isAuth && <Route path="/edit-employee" component={EditEmpComponent} /> }
+                      {this.state.isAuth && <Route path="/employee-trs" component={ListEmpTrComponent} /> }
+                      {this.state.isAuth && <Route path="/add-employee-tr" component={AddEmpTrComponent} /> }
                       <Route path="/new-tr" component={NewTrComponent} />
                       <Route path="/empalrt1" component={EmpAlert1} />
                       <Route path="/empalrt2" component={EmpAlert2} />
+                       {!this.state.isAuth && <Route path="/auth" component={AuthComponent} /> }
+                      {this.state.isAuth && <Route path="/visitors" component={ListVstComponent} /> }
+                      {this.state.isAuth && <Route path="/add-visitors" component={AddVstComponent} /> }
+                      {this.state.isAuth && <Route path="/edit-visitor" component={EditVstComponent} /> }
+                      {this.state.isAuth && <Route path="/visitor-trs" component={ListVstTrComponent} /> }
+                      <Route path="/new-vst-tr" component={NewVstTrComponent} />
+                      <Route path="/vstalrt1" component={VstAlert1} />
+                      <Route path="/logout" component={logout} />
+										  {!this.state.isAuth && <Redirect to="/auth"/> }
                   </Switch>
+								  </div>
               </div>
           </Router>
       </div>
-  );
+    );
+	}											 
 }
 
 const style = {
