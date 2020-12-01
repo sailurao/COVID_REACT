@@ -1,3 +1,13 @@
+/**********************************************************
+* FILE NAME:       App.js
+* PROJECT NAME:    COVID_PROJECT
+* AUTHOR:           NAGA AMAM
+* START DATE:       11/20/2020
+* DESCRIPTION:      This is the main APP.Js file consists of all routing and switching
+*                   
+*************************************************************/
+
+
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'

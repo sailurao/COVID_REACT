@@ -43,7 +43,7 @@ class ListVstComponent extends Component {
     }
 
     emailVst(id) {
-	   ApiService.emailVisitors(id);
+	   ApiService.emailVisitor(id);
 	   alert("Invitation Email Sent Succesfully!");
     }
 
