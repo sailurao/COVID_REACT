@@ -7,7 +7,6 @@
 *                   
 *************************************************************/
 
-
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
@@ -77,7 +76,7 @@ class App extends React.Component {
 	
    render() {
 		 const h2Style = {
-						marginLeft: '160px',
+						marginLeft: '10px',
 					};    
   return (
       <div className="container">
