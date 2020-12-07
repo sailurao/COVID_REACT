@@ -126,7 +126,7 @@ class ListEmpComponent extends Component {
                                         <td>{emp.address}</td>
                                         <td>
 											<table id="students1" style={{ border: '0px'}}> 
-                                            <tr style={{ border: '0px'}}><td><button className="btn btn-success" onClick={() => this.deleteEmp(emp.id)} style={{ border: '0px',width: '100px'}}> Delete</button></td>,</tr>
+                                            <tr style={{ border: '0px'}}><td><button className="btn btn-success" onClick={() => this.deleteEmp(emp.id)} style={{ border: '0px',width: '100px'}}> Delete</button></td></tr>
                                             <tr style={{ border: '0px'}}><td><button className="btn btn-success" onClick={() => this.editEmp(emp.id)} style={{ width: '100px'}}> Edit</button></td></tr>
                                             <tr style={{ border: '0px'}}><td><button className="btn btn-success" onClick={() => this.emailEmp(emp.id)} style={{ width: '100px'}}> Send Email</button></td></tr>
 											</table> 

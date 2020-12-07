@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ApiService from "../../service/ApiService";
+import QRious from "qrious";
 
 class ListVstComponent extends Component {
 
@@ -9,12 +10,16 @@ class ListVstComponent extends Component {
             visitorss: [],
             message: null
         }
-        this.deleteVst = this.deleteVst.bind(this);
+        this.timer=0;
+	this.flag=false;
+	this.deleteVst = this.deleteVst.bind(this);
         this.editVst = this.editVst.bind(this);
         this.addVst = this.addVst.bind(this);
         this.emailVst = this.emailVst.bind(this);
         this.reloadVstList = this.reloadVstList.bind(this);
-    }
+        this.generateQR = this.generateQR.bind(this);
+	this.TmrEvent = this.TmrEvent.bind(this);
+     }
 
     componentDidMount() {
         this.reloadVstList();
@@ -24,6 +29,7 @@ class ListVstComponent extends Component {
         ApiService.fetchVisitors()
             .then((res) => {
                 this.setState({visitorss: res.data.result})
+                this.timer = setInterval(this.TmrEvent, 1000);
             });
     }
 
@@ -52,12 +58,40 @@ class ListVstComponent extends Component {
         this.props.history.push('/add-visitors');
     }
 
+   generateQR = (val) => {
+	    let str = ApiService.getVstrQrCodeUrl(val);
+		let arg = {
+		  element: document.getElementById(val),
+		  value: str
+		};
+		 new QRious(arg);		
+     };	
+	
+//timer event 
+ TmrEvent() {
+          clearInterval(this.timer);
+   	  console.log("om sri Ram1- Timer Event");
+				   
+	      if(this.flag==false){
+			  this.flag=true;
+              var len=this.state.visitorss.length;
+			  var id;
+              var i;
+			  for(i=0;i<len;i++){
+			     id = this.state.visitorss[i].userid;
+				 this.generateQR(id);
+			  }
+		  }
+ }
+
+
     render() {
         return (
             <div>
                 <h2 className="text-center" class="title">Visitors Details</h2>
                 <button className="btn btn-danger" style={{width:'200px'}} onClick={() => this.addVst()}> Add Visitors</button>
-                <table className="table table-striped">
+		{/*<table className="table table-striped">*/}
+                <table id='students'>
                     <thead>
                         <tr>
                             <th className="hidden">Id</th>
@@ -67,13 +101,15 @@ class ListVstComponent extends Component {
                             <th>Email</th>
                             <th>MobileNumber</th>
                             <th>Address</th>
+                            <th></th>
+                            <th>QR CODE</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             this.state.visitorss.map(
                         emp =>
-                                    <tr key={emp.id}>
+                                     <tr style={{ border: '10px'}} key={emp.id}>
                                         <td>{emp.firstName}</td>
                                         <td>{emp.lastName}</td>
                                         <td>{emp.company}</td>
@@ -81,10 +117,19 @@ class ListVstComponent extends Component {
                                         <td>{emp.cell}</td>
                                         <td>{emp.address}</td>
                                         <td>
-                                            <button className="btn btn-success" onClick={() => this.deleteVst(emp.id)}> Delete</button>
-                                            <button className="btn btn-success" onClick={() => this.editVst(emp.id)} style={{marginLeft: '20px'}}> Edit</button>
-                                            <button className="btn btn-success" onClick={() => this.emailVst(emp.id)} style={{marginLeft: '20px'}}> Send Email</button>
-                                        </td>
+					    <table id="students1" style={{ border: '0px'}}> 
+                                            <tr style={{ border: '0px'}}><td><button className="btn btn-success" onClick={() => this.deleteVst(emp.id)} style={{ border: '0px',width: '100px'}}> Delete</button></td></tr>
+                                            <tr style={{ border: '0px'}}><td><button className="btn btn-success" onClick={() => this.editVst(emp.id)} style={{ width: '100px'}}> Edit</button></td></tr>
+                                            <tr style={{ border: '0px'}}><td><button className="btn btn-success" onClick={() => this.emailVst(emp.id)} style={{ width: '100px'}}> Send Email</button></td></tr>
+     					    </table> 
+					</td>
+                                        <td>
+					   <table id="no" style={{ border: '0px'}}> 
+						<tr>
+						<td ><canvas id={emp.userid} style={{ border: '50px'}}/></td></tr>
+					   </table> 
+					</td>
+
                                     </tr>
                             )
                         }
