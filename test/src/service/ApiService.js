@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //const COVID_CONTROLLER_IP = 'http://192.168.0.200' //http://localhost';
 //const COVID_CONTROLLER_IP = 'http://35.222.246.251'; //192.168.0.200';
-const COVID_CONTROLLER_IP = 'http://35.239.124.98'; //192.168.0.200';
+const COVID_CONTROLLER_IP = 'https://35.239.124.98'; //192.168.0.200';
 
 const USER_API_BASE_URL = COVID_CONTROLLER_IP +':8080/users';
 const EMPLOYEE_API_BASE_URL = COVID_CONTROLLER_IP +':8080/employees';
